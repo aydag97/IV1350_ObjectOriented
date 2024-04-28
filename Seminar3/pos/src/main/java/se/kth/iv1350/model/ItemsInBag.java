@@ -14,6 +14,7 @@ public class ItemsInBag {
      * @param item the item to be added to the bag
      * @param quantity the quantity of the item
      */
+    
     public ItemsInBag(ItemDTO item, int quantity){
         this.item = item;
         this.quantity = quantity;
