@@ -80,7 +80,6 @@ public class Sale {
             totalRunningPrice += (itemToUpdate.getItem().getItemPrice()*quantity);
             totalVAT += (itemToUpdate.getItem().getItemVatRate()*quantity);
         }
-
     }
 
     /**
@@ -115,7 +114,6 @@ public class Sale {
      * @param amountPaid The total amount paid by the customer.
      * @return The amount of change to be returned to the customer.
      */
-    
     public double calculateChange(double amountPaid) {
         return (amountPaid - this.totalPrice);
     }
@@ -127,8 +125,8 @@ public class Sale {
      * @return A data transfer object representing the receipt.
      */
     
-    public ReceiptDTO getReceipt(double change){
-        return receipt.createReceipt(saleAfterDiscount, change);
+    public ReceiptDTO getReceipt(double change, double amountPaid){
+        return receipt.createReceipt(saleAfterDiscount, change, amountPaid);
     }
 
     /**

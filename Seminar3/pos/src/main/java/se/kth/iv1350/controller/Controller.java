@@ -61,7 +61,6 @@ public class Controller {
         }
     }
 
-
     /**
      * Finalizes the current sale.
      * Records the sale in the sales log, updates the inventory, and returns
@@ -88,7 +87,7 @@ public class Controller {
 
     public double pay(double amountPaid) {
         double change = sale.calculateChange(amountPaid);
-        ReceiptDTO receiptToPrint = sale.getReceipt(change);
+        ReceiptDTO receiptToPrint = sale.getReceipt(change, amountPaid);
         printer.printReceipt(receiptToPrint);
         return change;
     }

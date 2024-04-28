@@ -15,7 +15,7 @@ public class Receipt {
    * @param change The amount of change to be returned to the customer.
    * @return The receipt containing sale information and change.
    */
-  public ReceiptDTO createReceipt(SaleDTO saleAfterDiscount, double change){
-    return new ReceiptDTO(saleAfterDiscount, change);
+  public ReceiptDTO createReceipt(SaleDTO saleAfterDiscount, double change, double amountPaid){
+    return new ReceiptDTO(saleAfterDiscount, change, amountPaid);
   }
 }

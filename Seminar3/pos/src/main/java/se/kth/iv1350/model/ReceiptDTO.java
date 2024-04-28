@@ -8,6 +8,7 @@ public class ReceiptDTO {
 
     private SaleDTO saleInfo;
     private double change;
+    private double amountPaid;
 
     /**
      * Constructs a {@code ReceiptDTO} with specified information about the sale and the change given.
@@ -15,9 +16,10 @@ public class ReceiptDTO {
      * @param saleInfo the detailed information about the sale
      * @param change the amount of change given to the customer
      */
-    public ReceiptDTO(SaleDTO saleInfo, double change) {
+    public ReceiptDTO(SaleDTO saleInfo, double change, double amountPaid) {
         this.saleInfo = saleInfo;
         this.change = change;
+        this.amountPaid = amountPaid;
     }
 
     /**
@@ -38,5 +40,12 @@ public class ReceiptDTO {
         return this.change;
     }
 
+    /**
+     * Retrieves the amount paid by customer during the transaction.
+     * 
+     * @return the amount of paid by customer
+     */
+    public double getAmountPaid(){
+        return this.amountPaid;
+    }
 }
-

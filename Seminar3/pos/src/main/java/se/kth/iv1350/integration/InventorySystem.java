@@ -14,10 +14,10 @@ public class InventorySystem {
      */
     public InventorySystem(){
       items = new ArrayList<ItemDTO>();
-      items.add(new ItemDTO(1, "Egg", 30.95, 10));
-      items.add(new ItemDTO(2, "Milk", 17.50, 11));
-      items.add(new ItemDTO(3, "Butter", 50.49, 15));
-      items.add(new ItemDTO(4, "Bread", 15.99, 9.9));
+      items.add(new ItemDTO(1, "Egg", 30.95, 12));
+      items.add(new ItemDTO(2, "Milk", 17.50, 6));
+      items.add(new ItemDTO(3, "Butter", 50.49, 25));
+      items.add(new ItemDTO(4, "Bread", 15.99, 6));
     }
 
     /**
