@@ -5,9 +5,19 @@ import java.time.format.DateTimeFormatter;
 import se.kth.iv1350.model.*;
 
 
+/**
+ * The Printer class is responsible for printing receipts.
+ * It formats and prints the receipt information based on the provided ReceiptDTO.
+ */
+
 public class Printer {
-    
-    //payment diagram
+
+    /**
+     * Prints the receipt based on the provided ReceiptDTO.
+     * 
+     * @param receiptToPrint The receipt information to be printed.
+     */
+
     public void printReceipt(ReceiptDTO receiptToPrint) {
 
         SaleDTO saleInfoFromReceipt = receiptToPrint.getSaleInfo();

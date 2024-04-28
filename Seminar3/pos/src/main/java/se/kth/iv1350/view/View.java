@@ -1,19 +1,29 @@
 package se.kth.iv1350.view;
-
 import se.kth.iv1350.controller.*;
 import se.kth.iv1350.model.*;
 import java.util.ArrayList;
 import static java.lang.System.*;
 
+
+/**
+ * The View class is responsible for interacting with the user interface.
+ */
 public class View {
 
     private Controller contr;
 
-    //Constructor
+    /**
+     * Constructs a View object with the specified controller.
+     * 
+     * @param controller The Controller object associated with this View instance.
+     */
     public View(Controller contr){
         this.contr = contr;
     }
 
+    /**
+     * Simulates a fake sale story for testing purposes.
+     */
     public void simulateFakeSaleStory(){
         
         out.println("\n---------- Welcome to our store! ----------\n");
@@ -39,8 +49,5 @@ public class View {
 
 
         out.println("\n---------- Sale has been paid and ended ----------\n");
-
     }
-    
-
 }

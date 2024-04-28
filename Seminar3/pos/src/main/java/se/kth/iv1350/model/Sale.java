@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 // hur ska vi räkna ut total price med vat rate?!!
+
+/**
+ * The Sale class represents a sale transaction.
+ */
 public class Sale {
     private ArrayList<ItemsInBag> shoppingBag;
     private Receipt receipt;
@@ -14,7 +18,9 @@ public class Sale {
     private double totalRunningPrice;
 
 
-    // Constructor
+    /**
+     * Constructs a Sale object with initial values.
+     */
     public Sale() {
         saleStartTime = setSaleStartTime();
         shoppingBag = new ArrayList<ItemsInBag>();
@@ -29,6 +35,12 @@ public class Sale {
         return LocalDateTime.now();
     }
 
+    /**
+     * Retrieves the item in the shopping bag with the specified item ID.
+     * 
+     * @param itemID The ID of the item to retrieve.
+     * @return The ItemsInBag object corresponding to the specified item ID, or null if not found.
+     */
     public ItemsInBag getItemInBag(int itemID) {
         ItemsInBag currentItemInBag;
         for (int i = 0; i < shoppingBag.size(); i++) {
@@ -40,7 +52,12 @@ public class Sale {
         return null;
     }
 
-    // Register communication diagram
+    /**
+     * Checks if the shopping bag contains an item with the specified item ID.
+     * 
+     * @param itemID The ID of the item to check for.
+     * @return true if the shopping bag contains the item, false otherwise.
+     */
     public boolean containsItemID(int itemID) {
         if (getItemInBag(itemID) != null) {
             return true;
@@ -49,7 +66,12 @@ public class Sale {
         }
     }
 
-    // Register communicastion diagram
+    /**
+     * Updates the quantity of an item in the sale.
+     * 
+     * @param itemID   The ID of the item to update.
+     * @param quantity The new quantity of the item.
+     */
     public void updateItemInSale(int itemID, int quantity) {
 
         ItemsInBag itemToUpdate = getItemInBag(itemID);
@@ -61,13 +83,23 @@ public class Sale {
 
     }
 
-    // Register communicastion diagram
+    /**
+     * Adds a new item to the sale.
+     * 
+     * @param itemInfo The ItemDTO object containing information about the item to add.
+     * @param quantity The quantity of the item to add.
+     */
     public void addNewItem(ItemDTO itemInfo, int quantity) {
         this.shoppingBag.add(new ItemsInBag(itemInfo, quantity));
         totalRunningPrice += (itemInfo.getItemPrice()*quantity);
         totalVAT += (itemInfo.getItemVatRate()*quantity);
     }
 
+    /**
+     * Retrieves the items in the final shopping bag.
+     * 
+     * @return The ArrayList of ItemsInBag objects representing the final shopping bag.
+     */
     public ArrayList<ItemsInBag> getFinalBag() {
         return this.shoppingBag;
     }
@@ -77,23 +109,41 @@ public class Sale {
         this.totalPrice = totalRunningPrice + (totalVAT/100);
     }
 
-    // Payment diagram
+    /**
+     * Calculates the change to be returned to the customer based on the amount paid.
+     *
+     * @param amountPaid The total amount paid by the customer.
+     * @return The amount of change to be returned to the customer.
+     */
+    
     public double calculateChange(double amountPaid) {
         return (amountPaid - this.totalPrice);
     }
 
+    /**
+     * Generates a receipt based on the sale data and the calculated change.
+     *
+     * @param change The change to be included in the receipt.
+     * @return A data transfer object representing the receipt.
+     */
+    
     public ReceiptDTO getReceipt(double change){
         return receipt.createReceipt(saleAfterDiscount, change);
     }
 
-    // discount diagram
+    /**
+     * Reduces the sale by applying a discount and updating the sale information.
+     * 
+     * @param finalSale The list of items in the final sale.
+     * @param discount  The discount amount to apply.
+     * @return The SaleDTO object representing the sale after applying the discount.
+     */
+    
     public SaleDTO reduceSale(ArrayList<ItemsInBag> finalSale, double discount) {
         double totalPriceAfterDiscount = totalPrice - discount;
         // update the amount to pay
         getTotalPriceToPay();
         saleAfterDiscount = new SaleDTO(this.saleStartTime, finalSale, this.totalPrice, totalPriceAfterDiscount, this.totalVAT);
-    
         return saleAfterDiscount;
     }
-
 }
