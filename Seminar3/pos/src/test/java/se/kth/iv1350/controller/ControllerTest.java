@@ -1,6 +1,9 @@
 package se.kth.iv1350.controller;
 
-
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions.*;
 
 public class ControllerTest {
     // public void registerItem(int itemID, int quantity) {

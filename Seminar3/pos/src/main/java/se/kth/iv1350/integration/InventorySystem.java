@@ -14,10 +14,10 @@ public class InventorySystem {
      */
     public InventorySystem(){
       items = new ArrayList<ItemDTO>();
-      items.add(new ItemDTO(1, "Egg", 30.95, 12));
-      items.add(new ItemDTO(2, "Milk", 17.50, 6));
-      items.add(new ItemDTO(3, "Butter", 50.49, 25));
-      items.add(new ItemDTO(4, "Bread", 15.99, 6));
+      items.add(new ItemDTO(1, "Egg", 30.95, 12, 100));
+      items.add(new ItemDTO(2, "Milk", 17.50, 6, 50));
+      items.add(new ItemDTO(3, "Butter", 50.49, 25, 35));
+      items.add(new ItemDTO(4, "Bread", 15.99, 6, 20));
     }
 
     /**
@@ -42,7 +42,11 @@ public class InventorySystem {
      */
     public void updateItemInventory(ArrayList<ItemsInBag> finalSale) {
       for(ItemsInBag itemInFinalSale : finalSale){
+        ItemDTO itemInfo = itemInFinalSale.getItem();
+        int itemQuantity = itemInFinalSale.getItemQuantity(); // 2 köpta ägg förpack.
+        int updatedQuantity = itemInfo.getItemQuantity() - itemQuantity; // 100 - 2 = 98 
         items.remove(itemInFinalSale.getItem());
+        items.add(new ItemDTO(itemInfo.getItemID(), itemInfo.getItemName(), itemInfo.getItemPrice(), itemInfo.getItemVatRate(), updatedQuantity));
       }
     } 
 }

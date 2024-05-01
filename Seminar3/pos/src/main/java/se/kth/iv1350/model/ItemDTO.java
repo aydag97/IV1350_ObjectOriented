@@ -10,6 +10,7 @@ public class ItemDTO {
     private String itemName;
     private double price;
     private double vatRate;
+    private int quantity;
 
     /**
      * Constructs an {@code ItemDTO} with the specified item ID, name, price, and VAT rate.
@@ -20,11 +21,12 @@ public class ItemDTO {
      * @param vatRate the VAT rate applicable to the item
      */
     
-    public ItemDTO(int itemID, String itemName, double price, double vatRate) {
+    public ItemDTO(int itemID, String itemName, double price, double vatRate, int quantity) {
         this.itemID = itemID;
         this.itemName = itemName;
         this.price = price; 
         this.vatRate = vatRate;
+        this.quantity = quantity;
     }    
 
     /**
@@ -61,6 +63,10 @@ public class ItemDTO {
      */
     public double getItemVatRate() {
         return this.vatRate;
+    }
+
+    public int getItemQuantity() {
+        return this.quantity;
     }
     
 }
