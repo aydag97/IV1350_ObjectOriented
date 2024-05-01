@@ -47,17 +47,16 @@ public class Controller {
      * @param quantity The quantity of the item to be registered.
      */
 
-    public void registerItem(int itemID, int quantity) {
+    public ArrayList<ItemsInBag> registerItem(int itemID, int quantity) {
         boolean itemFound = sale.containsItemID(itemID);
-
         if (itemFound) {
-            sale.updateItemInSale(itemID, quantity);
+            ArrayList<ItemsInBag> currenShoppingBag = sale.updateItemQuantityInSale(itemID, quantity);
+            return currenShoppingBag;
         } else {
             // what happens if itemInfo is null. exception handling? or is it to seminar 3?
             ItemDTO itemInfo = inventorySystem.getItemInfo(itemID);
-            if (itemInfo != null) {
-                sale.addNewItem(itemInfo, quantity);
-            }
+            ArrayList<ItemsInBag> currenShoppingBag = sale.addNewItem(itemInfo, quantity);
+            return currenShoppingBag;
         }
     }
 
@@ -88,7 +87,7 @@ public class Controller {
     public double pay(double amountPaid) {
         double change = sale.calculateChange(amountPaid);
         ReceiptDTO receiptToPrint = sale.getReceipt(change, amountPaid);
-        printer.printReceipt(receiptToPrint);
+       // printer.printReceipt(receiptToPrint);
         return change;
     }
 

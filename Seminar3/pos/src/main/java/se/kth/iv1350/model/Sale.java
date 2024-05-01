@@ -72,14 +72,16 @@ public class Sale {
      * @param itemID   The ID of the item to update.
      * @param quantity The new quantity of the item.
      */
-    public void updateItemInSale(int itemID, int quantity) {
+    public ArrayList<ItemsInBag> updateItemQuantityInSale(int itemID, int quantity) {
 
         ItemsInBag itemToUpdate = getItemInBag(itemID);
         if (itemToUpdate != null) {
             itemToUpdate.updateQuantity(quantity);
             totalRunningPrice += (itemToUpdate.getItem().getItemPrice()*quantity);
             totalVAT += (itemToUpdate.getItem().getItemVatRate()*quantity);
+            this.totalPrice = totalRunningPrice + (totalVAT/100);
         }
+        return this.shoppingBag;
     }
 
     /**
@@ -88,10 +90,12 @@ public class Sale {
      * @param itemInfo The ItemDTO object containing information about the item to add.
      * @param quantity The quantity of the item to add.
      */
-    public void addNewItem(ItemDTO itemInfo, int quantity) {
+    public ArrayList<ItemsInBag> addNewItem(ItemDTO itemInfo, int quantity) {
         this.shoppingBag.add(new ItemsInBag(itemInfo, quantity));
         totalRunningPrice += (itemInfo.getItemPrice()*quantity);
         totalVAT += (itemInfo.getItemVatRate()*quantity);
+        this.totalPrice = totalRunningPrice + (totalVAT/100);
+        return this.shoppingBag;
     }
 
     /**
@@ -104,9 +108,9 @@ public class Sale {
     }
 
 
-    private void getTotalPriceToPay() {
-        this.totalPrice = totalRunningPrice + (totalVAT/100);
-    }
+    // private void getTotalPriceToPay() {
+    //     this.totalPrice = totalRunningPrice + (totalVAT/100);
+    // }
 
     /**
      * Calculates the change to be returned to the customer based on the amount paid.
@@ -139,9 +143,7 @@ public class Sale {
     
     public SaleDTO reduceSale(ArrayList<ItemsInBag> finalSale, double discount) {
         double totalPriceAfterDiscount = totalPrice - discount;
-        // update the amount to pay
-        getTotalPriceToPay();
-        saleAfterDiscount = new SaleDTO(this.saleStartTime, finalSale, this.totalPrice, totalPriceAfterDiscount, this.totalVAT);
+        saleAfterDiscount = new SaleDTO(this.saleStartTime, finalSale, this.totalPrice, discount, totalPriceAfterDiscount, this.totalVAT);
         return saleAfterDiscount;
     }
 }

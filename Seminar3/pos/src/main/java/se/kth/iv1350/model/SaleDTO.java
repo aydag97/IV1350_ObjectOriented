@@ -13,6 +13,7 @@ public class SaleDTO {
     private ArrayList<ItemsInBag> finalSale;
     private double totalPrice;
     private double totalDiscount;
+    private double totalPriceAfterDiscount;
     private double totalVAT;
 
     /**
@@ -25,11 +26,12 @@ public class SaleDTO {
      * @param totalVAT The total value-added tax (VAT) of the sale.
      */
     public SaleDTO(LocalDateTime time, ArrayList<ItemsInBag> finalSale, double totalPrice, double totalDiscount,
-            double totalVAT) {
+            double totalPriceAfterDiscount, double totalVAT) {
         this.time = time;
         this.finalSale = finalSale;
         this.totalPrice = totalPrice;
         this.totalDiscount = totalDiscount;
+        this.totalPriceAfterDiscount = totalPriceAfterDiscount;
         this.totalVAT = totalVAT;
     }
 
@@ -67,6 +69,10 @@ public class SaleDTO {
      */
     public double getTotalDiscount(){
         return this.totalDiscount;
+    }
+
+    public double getTotalPriceAfterDiscount() {
+        return this.totalPriceAfterDiscount;
     }
 
     /**

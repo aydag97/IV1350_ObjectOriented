@@ -6,75 +6,65 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SaleTest {
-
+  private Sale sale;
 
     @BeforeEach
     public void setUp() {
-    
-    
+      sale = new Sale();
     }
-
 
     @AfterEach
     public void tearDown() {
-
+      sale = null;
     }
 
-  
+    @Test
+    public void containsItemIDTest() {
+      createShoppingBag();
+      assertTrue(sale.containsItemID(1), "Item not found in the bag");
+    }
 
+    @Test
+    public void containsNoItemIDTest() {
+      createShoppingBag();
+      assertFalse(sale.containsItemID(2), "Item found in the bag");
+    }
 
+    @Test
+    public void updateQuantityOfAlreadyScannedItem() {
+      createShoppingBag();
+      sale.updateItemQuantityInSale(3, 2);
+      int expectedResult = 3;
+      assertEquals(expectedResult, sale.getItemInBag(3).getItemQuantity(), "Item quantity didn't updated correctly");
+    }
+      
+    @Test
+    public void addNewItemTest(){
+      createShoppingBag();
+      sale.addNewItem(new ItemDTO(2, "Milk", 17.50, 6, 50), 1);
+      int expectedResult = 3;
+      assertEquals(expectedResult, sale.getFinalBag().size(), "New Item was not added correctly");
+    }
 
+    @Test
+    public void calculateChangeTest(){
+      createShoppingBag();
+      double amountChange = sale.calculateChange(200);
+      double expectedResult = 87.12;
+      assertEquals(expectedResult, amountChange, "Amount change is not calculated correctly");
+    }
 
-
-
-    // public ItemsInBag getItemInBag(int itemID) {
-    //     ItemsInBag currentItemInBag;
-    //     for (int i = 0; i < shoppingBag.size(); i++) {
-    //         currentItemInBag = shoppingBag.get(i);
-    //         if (itemID == currentItemInBag.getItemID()) {
-    //             return currentItemInBag;
-    //         }
-    //     }
-    //     return null;
-    // }
-
-  // public boolean containsItemID(int itemID) {
-  //       if (getItemInBag(itemID) != null) {
-  //           return true;
-  //       } else {
-  //           return false;
-  //       }
-  //   }
-
-
-  // public void updateItemInSale(int itemID, int quantity) {
-
-  //       ItemsInBag itemToUpdate = getItemInBag(itemID);
-  //       if (itemToUpdate != null) {
-  //           itemToUpdate.updateQuantity(quantity);
-  //           totalRunningPrice += (itemToUpdate.getItem().getItemPrice()*quantity);
-  //           totalVAT += (itemToUpdate.getItem().getItemVatRate()*quantity);
-  //       }
-  // }
-
-//   public void addNewItem(ItemDTO itemInfo, int quantity) {
-//         this.shoppingBag.add(new ItemsInBag(itemInfo, quantity));
-//         totalRunningPrice += (itemInfo.getItemPrice()*quantity);
-//         totalVAT += (itemInfo.getItemVatRate()*quantity);
-//     }
-// 
-
-    // public double calculateChange(double amountPaid) {
-    //     return (amountPaid - this.totalPrice);
-    // }
-
-
-  // public SaleDTO reduceSale(ArrayList<ItemsInBag> finalSale, double discount) {
-  //       double totalPriceAfterDiscount = totalPrice - discount;
-  //       // update the amount to pay
-  //       getTotalPriceToPay();
-  //       saleAfterDiscount = new SaleDTO(this.saleStartTime, finalSale, this.totalPrice, totalPriceAfterDiscount, this.totalVAT);
-  //       return saleAfterDiscount;
-  //   }
-
+    @Test
+    public void reduceSaleTest() {
+      createShoppingBag();
+      double expectedResult = 112.88;
+      SaleDTO saleAfterDiscount = sale.reduceSale(sale.getFinalBag(), 0);
+      assertEquals(expectedResult, saleAfterDiscount.getTotalPriceAfterDiscount(), "Price didn't reduce with discount"); 
+    }
+    
+    
+    private void createShoppingBag(){
+      sale.addNewItem(new ItemDTO(1, "Egg", 30.95, 12, 100), 2);
+      sale.addNewItem(new ItemDTO(3, "Butter", 50.49, 25, 35), 1);
+    }
 }
