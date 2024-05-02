@@ -87,7 +87,7 @@ public class Controller {
     public double pay(double amountPaid) {
         double change = sale.calculateChange(amountPaid);
         ReceiptDTO receiptToPrint = sale.getReceipt(change, amountPaid);
-       // printer.printReceipt(receiptToPrint);
+        printer.printReceipt(receiptToPrint);
         return change;
     }
 

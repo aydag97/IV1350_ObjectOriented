@@ -20,7 +20,12 @@ public class Printer {
 
     public void printReceipt(ReceiptDTO receiptToPrint) {
 
+
         SaleDTO saleInfoFromReceipt = receiptToPrint.getSaleInfo();
+        if(saleInfoFromReceipt == null){
+            System.out.println("Nothing to print");
+            return;
+        }
         System.out.println("****************************************************");
         System.out.println("\t\t Receipt\n");
 
