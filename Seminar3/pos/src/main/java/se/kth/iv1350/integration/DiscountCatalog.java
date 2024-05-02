@@ -9,9 +9,9 @@ import se.kth.iv1350.model.*;
 
 public class DiscountCatalog {
 
-    // how to do discount?!
     /**
      * Fetches discount information based on the customer ID and the items in the sale.
+     * No logic applied to this class for this seminar.
      * 
      * @param customerID The ID of the customer for whom the discount information is fetched.
      * @param saleInfo   The list of items in the sale for which the discount is calculated.

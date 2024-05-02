@@ -1,7 +1,6 @@
 package se.kth.iv1350.integration;
 import java.util.ArrayList;
 import se.kth.iv1350.model.*;
-// ska vi ha en quantity för items i inventory system?!
 
 /**
  * The InventorySystem class manages the inventory of items available for sale.
@@ -43,8 +42,8 @@ public class InventorySystem {
     public void updateItemInventory(ArrayList<ItemsInBag> finalSale) {
       for(ItemsInBag itemInFinalSale : finalSale){
         ItemDTO itemInfo = itemInFinalSale.getItem();
-        int itemQuantity = itemInFinalSale.getItemQuantity(); // 2 köpta ägg förpack.
-        int updatedQuantity = itemInfo.getItemQuantity() - itemQuantity; // 100 - 2 = 98 
+        int itemQuantity = itemInFinalSale.getItemQuantity();
+        int updatedQuantity = itemInfo.getItemQuantity() - itemQuantity; 
         items.remove(itemInFinalSale.getItem());
         items.add(new ItemDTO(itemInfo.getItemID(), itemInfo.getItemName(), itemInfo.getItemPrice(), itemInfo.getItemVatRate(), updatedQuantity));
       }

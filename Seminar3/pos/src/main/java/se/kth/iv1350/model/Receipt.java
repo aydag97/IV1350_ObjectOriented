@@ -1,8 +1,6 @@
 package se.kth.iv1350.model;
 
 
-// how to implement the receipt class?!
-
 /**
  * The Receipt class is responsible for creating receipts.
  * It creates a ReceiptDTO based on the provided SaleDTO and change amount.

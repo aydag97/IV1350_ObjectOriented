@@ -11,7 +11,7 @@ public class AccountingSystem {
 
      /**
      * Updates the accounting system with information about a sale, including any
-     * discounts applied.
+     * discounts applied. No logic applied for this seminar.
      * 
      * @param saleAfterDiscount The SaleDTO object containing information about the
      *                          sale after applying discounts.

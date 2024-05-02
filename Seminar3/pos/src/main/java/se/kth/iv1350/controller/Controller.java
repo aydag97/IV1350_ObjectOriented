@@ -53,7 +53,6 @@ public class Controller {
             ArrayList<ItemsInBag> currenShoppingBag = sale.updateItemQuantityInSale(itemID, quantity);
             return currenShoppingBag;
         } else {
-            // what happens if itemInfo is null. exception handling? or is it to seminar 3?
             ItemDTO itemInfo = inventorySystem.getItemInfo(itemID);
             ArrayList<ItemsInBag> currenShoppingBag = sale.addNewItem(itemInfo, quantity);
             return currenShoppingBag;

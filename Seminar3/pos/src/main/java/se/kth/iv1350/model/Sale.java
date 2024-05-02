@@ -3,7 +3,6 @@ package se.kth.iv1350.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-// hur ska vi räkna ut total price med vat rate?!!
 
 /**
  * The Sale class represents a sale transaction.
@@ -107,10 +106,6 @@ public class Sale {
         return this.shoppingBag;
     }
 
-
-    // private void getTotalPriceToPay() {
-    //     this.totalPrice = totalRunningPrice + (totalVAT/100);
-    // }
 
     /**
      * Calculates the change to be returned to the customer based on the amount paid.
