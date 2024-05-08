@@ -97,7 +97,6 @@ public class Controller {
      * information about the sale after discount.
      * 
      * @param customerID The ID of the customer requesting the discount.
-     * @param saleInfo An ArrayList containing information about the items in the sale.
      * @return Information about the sale after applying the discount.
      */
 
