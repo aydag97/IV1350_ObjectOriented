@@ -45,7 +45,7 @@ public class ControllerTest {
     public void endSaleTest() {
         ArrayList<ItemsInBag> shoppingBagWithUpdatedQuantity = controller.registerItem(2, 3);
         shoppingBagWithUpdatedQuantity = controller.registerItem(3, 1);
-        int finalBag = controller.endSale().get(0).getItemQuantity() + controller.endSale().get(1).getItemQuantity();
+        int finalBag = shoppingBagWithUpdatedQuantity.get(0).getItemQuantity() + shoppingBagWithUpdatedQuantity.get(1).getItemQuantity();
         int expectedResult = 4;
         assertEquals(expectedResult, finalBag, "The shopping bag does not contain all scanned items.");
     }
@@ -67,8 +67,7 @@ public class ControllerTest {
     public void requestDiscountTest() {
         ArrayList<ItemsInBag> shoppingBagWithUpdatedQuantity = controller.registerItem(2, 3);
         shoppingBagWithUpdatedQuantity = controller.registerItem(3, 1);
-        ArrayList<ItemsInBag> finalSale = controller.endSale();
-        SaleDTO saleAfterDiscount = controller.requestDiscount(1, finalSale);
+        SaleDTO saleAfterDiscount = controller.requestDiscount(1);
         double expectedDiscount = 0;
         assertEquals(expectedDiscount, saleAfterDiscount.getTotalDiscount(), "Discount amount doesn't match");
     }

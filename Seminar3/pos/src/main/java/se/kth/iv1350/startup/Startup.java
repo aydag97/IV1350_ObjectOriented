@@ -31,4 +31,10 @@ public class Startup {
   public View getView(){
     return this.view;
   }
+
+  public static void main(String[] args) {
+    Startup startup = new Startup();
+    View view = startup.getView();
+    view.simulateFakeSaleStory();
+  }
 }

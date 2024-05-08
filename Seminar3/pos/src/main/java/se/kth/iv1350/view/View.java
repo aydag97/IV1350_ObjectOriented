@@ -1,7 +1,6 @@
 package se.kth.iv1350.view;
 import se.kth.iv1350.controller.*;
-import se.kth.iv1350.model.*;
-import java.util.ArrayList;
+
 import static java.lang.System.*;
 
 
@@ -36,10 +35,10 @@ public class View {
         contr.registerItem(2, 3);
         out.println("3x Item 2 added.");
 
-        ArrayList<ItemsInBag> saleInfo = contr.endSale();
+        contr.endSale();
         out.println("Sale has been ended\n");
 
-        contr.requestDiscount(1, saleInfo);
+        contr.requestDiscount(1);
 
         out.println("Calculating the change to be returned to customer...\n");
 

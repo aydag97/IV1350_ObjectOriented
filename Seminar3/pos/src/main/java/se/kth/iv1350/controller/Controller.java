@@ -59,19 +59,19 @@ public class Controller {
         }
     }
 
+    private ArrayList<ItemsInBag> getFinalBag(){
+        return this.sale.getFinalBag();
+    }
+
     /**
      * Finalizes the current sale.
-     * Records the sale in the sales log, updates the inventory, and returns
-     * the list of items in the sale.
-     * 
-     * @return An ArrayList containing the items in the final sale.
+     * Records the sale in the sales log and updates the inventory.
      */
 
-    public ArrayList<ItemsInBag> endSale() {
-        ArrayList<ItemsInBag> finalSale = this.sale.getFinalBag();
+    public void endSale() {
+        ArrayList<ItemsInBag> finalSale = getFinalBag();
         saleslog.recordSale(finalSale);
         inventorySystem.updateItemInventory(finalSale);
-        return finalSale;
     }
 
     /**
@@ -101,8 +101,9 @@ public class Controller {
      * @return Information about the sale after applying the discount.
      */
 
-    public SaleDTO requestDiscount(int customerID, ArrayList<ItemsInBag> saleInfo) {
-        double amountDiscount = discountCatalog.fetchDiscountInfo(customerID, saleInfo);
+    public SaleDTO requestDiscount(int customerID) {
+        ArrayList<ItemsInBag> finalSale = getFinalBag();
+        double amountDiscount = discountCatalog.fetchDiscountInfo(customerID, finalSale);
         SaleDTO saleAfterDiscount = sale.reduceSale(sale.getFinalBag(), amountDiscount);
         accountingSystem.updateAccounting(saleAfterDiscount);
         return saleAfterDiscount;
