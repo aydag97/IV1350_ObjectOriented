@@ -21,6 +21,8 @@ public class View {
      */
     public View(Controller contr){
         this.contr = contr;
+        contr.addNewSaleObserver(new TotalRevenueView());
+        contr.addNewSaleObserver(new TotalRevenueFileOutput());
     }
 
     /**
@@ -46,8 +48,62 @@ public class View {
             contr.registerItem(2, 3);
             out.println("3x Item 2 added.");
         }catch(ItemNotFoundException | DatabaseFailureException exception){
+            out.println(exception.getMessage());
+            fileLogger.log(exception);
+        }
+
+        try{
+            contr.registerItem(4, 1);
+            out.println("1x Item 4 added.");
+        }catch(ItemNotFoundException | DatabaseFailureException exception){
             fileLogger.log(exception);
             out.println(exception.getMessage());
+        }
+
+        try{
+            contr.registerItem(6, 1);
+            out.println("1x Item 4 added.");
+        }catch(ItemNotFoundException | DatabaseFailureException exception){
+            out.println(exception.getMessage());
+            fileLogger.log(exception);
+        }
+    
+        contr.endSale();
+        out.println("Sale has been ended\n");
+
+        contr.requestDiscount(1);
+
+        out.println("Calculating the change to be returned to customer...\n");
+
+        double change = contr.pay(500);
+
+        out.println("Cash back to customer: " + change + " SEK");
+
+        out.println("\n---------- Sale has been paid and ended ----------\n");
+    }
+
+    public void simulateAnptherFakeSaleStory(){
+        FileLogger fileLogger = new FileLogger();
+        
+        out.println("\n---------- Welcome to our store! ----------\n");
+
+        contr.startSale();
+        out.println("Starting a new sale: \n");
+
+        try{
+            contr.registerItem(1, 1);
+            out.println("1x Item 1 added.");
+        }catch(ItemNotFoundException | DatabaseFailureException exception){
+            out.println(exception.getMessage());
+            fileLogger.log(exception);
+        }
+          
+        try{
+            contr.registerItem(2, 3);
+            out.println("3x Item 2 added.");
+        }catch(ItemNotFoundException | DatabaseFailureException exception){
+            out.println(exception.getMessage());
+            fileLogger.log(exception);
         }
 
         try{

@@ -36,5 +36,6 @@ public class Startup {
     Startup startup = new Startup();
     View view = startup.getView();
     view.simulateFakeSaleStory();
+    view.simulateAnptherFakeSaleStory();
   }
 }

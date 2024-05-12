@@ -15,7 +15,7 @@ public class Sale {
     private double totalPrice;
     private double totalVAT;
     private double totalRunningPrice;
-
+    private ArrayList<SaleObserver> observers = new ArrayList<SaleObserver>();
 
     /**
      * Constructs a Sale object with initial values.
@@ -125,6 +125,7 @@ public class Sale {
      */
     
     public ReceiptDTO getReceipt(double change, double amountPaid){
+        notifyObservers();
         return receipt.createReceipt(saleAfterDiscount, change, amountPaid);
     }
 
@@ -140,5 +141,15 @@ public class Sale {
         double totalPriceAfterDiscount = totalPrice - discount;
         saleAfterDiscount = new SaleDTO(this.saleStartTime, finalSale, this.totalPrice, discount, totalPriceAfterDiscount, this.totalVAT);
         return saleAfterDiscount;
+    }
+
+    private void notifyObservers(){
+        for(SaleObserver observer: observers){
+            observer.updateRevenue(totalPrice);
+        }
+    }
+
+    public void addMultipleSaleObservers(ArrayList<SaleObserver> observerList){
+        observers.addAll(observerList);
     }
 }

@@ -16,6 +16,7 @@ public class Controller {
     private InventorySystem inventorySystem;
     private DiscountCatalog discountCatalog;
     private Sale sale;
+    private ArrayList<SaleObserver> saleObservers = new ArrayList<SaleObserver>();
 
     /**
      * Constructs a new Controller instance.
@@ -40,6 +41,7 @@ public class Controller {
 
     public void startSale() {
         sale = new Sale();
+        sale.addMultipleSaleObservers(saleObservers);
     }
     /**
      * Registers an item in the current sale.
@@ -109,5 +111,9 @@ public class Controller {
         SaleDTO saleAfterDiscount = sale.reduceSale(sale.getFinalBag(), amountDiscount);
         accountingSystem.updateAccounting(saleAfterDiscount);
         return saleAfterDiscount;
+    }
+
+    public void addNewSaleObserver(SaleObserver observerToAdd){
+        saleObservers.add(observerToAdd);
     }
 }

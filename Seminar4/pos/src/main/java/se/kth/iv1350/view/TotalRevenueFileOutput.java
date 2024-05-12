@@ -1,4 +1,4 @@
-package se.kth.iv1350.logapi;
+package se.kth.iv1350.view;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,24 +6,27 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Printing log messages to a file in the same directory named "log.txt".
- * These log messages are exception messages along with the time they occur.
-*/
-public class FileLogger {
-    private PrintWriter logStream;
+import se.kth.iv1350.model.SaleObserver;
 
-    /**
-     * Creates a new instance of the FileLogger class and a new file. 
-     * An already existing log file will be deleted after each call to the constructor.
-     */
-    public FileLogger() {
-        try{
-            logStream = new PrintWriter(new FileWriter("log.txt"));
-        }catch(IOException e) {
+public class TotalRevenueFileOutput implements SaleObserver {
+
+    private PrintWriter logStream;
+    private double totalRevenue;
+
+    public TotalRevenueFileOutput() {
+        totalRevenue = 0;
+        try {
+            logStream = new PrintWriter(new FileWriter("RevenueLog.txt"), true);
+        } catch (IOException e) {
             System.out.println("cannot LOG");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void updateRevenue(double totalRevenue) {
+        this.totalRevenue += totalRevenue;
+        log();
     }
 
     private String getCurrentTime(){
@@ -38,13 +41,13 @@ public class FileLogger {
      * @param exceptionMessage The string that will be printed to the log file.
     */
    
-    public void log(Exception exceptionMessage) {
+    public void log() {
         StringBuilder messageToLog = new StringBuilder();
-        messageToLog.append("An exception was thrown at ");
+        messageToLog.append("Current total revenue at ");
         messageToLog.append(getCurrentTime());
-        messageToLog.append(" :");
-        messageToLog.append("\n< " + exceptionMessage.getMessage() + " >");
+        messageToLog.append(" is: ");
+        messageToLog.append(this.totalRevenue + " kr.");
         logStream.println(messageToLog + "\n");
-        logStream.flush();
     }
+
 }
