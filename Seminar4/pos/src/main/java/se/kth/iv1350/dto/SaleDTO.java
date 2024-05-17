@@ -1,7 +1,9 @@
-package se.kth.iv1350.model;
+package se.kth.iv1350.dto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import se.kth.iv1350.model.ItemsInBag;
 
 /**
  * The SaleDTO class represents a Data Transfer Object (DTO) for sale information.
@@ -13,6 +15,7 @@ public class SaleDTO {
     private ArrayList<ItemsInBag> finalSale;
     private double totalPrice;
     private double totalDiscount;
+    private ArrayList<DiscountDTO> allAppliedDiscounts;
     private double totalPriceAfterDiscount;
     private double totalVAT;
 
@@ -26,11 +29,12 @@ public class SaleDTO {
      * @param totalVAT The total value-added tax (VAT) of the sale.
      */
     public SaleDTO(LocalDateTime time, ArrayList<ItemsInBag> finalSale, double totalPrice, double totalDiscount,
-            double totalPriceAfterDiscount, double totalVAT) {
+            ArrayList<DiscountDTO> allAppliedDiscounts, double totalPriceAfterDiscount, double totalVAT) {
         this.time = time;
         this.finalSale = finalSale;
         this.totalPrice = totalPrice;
         this.totalDiscount = totalDiscount;
+        this.allAppliedDiscounts = allAppliedDiscounts;
         this.totalPriceAfterDiscount = totalPriceAfterDiscount;
         this.totalVAT = totalVAT;
     }
@@ -69,6 +73,10 @@ public class SaleDTO {
      */
     public double getTotalDiscount(){
         return this.totalDiscount;
+    }
+
+    public ArrayList<DiscountDTO> getAllAppliedDiscounts() {
+        return this.allAppliedDiscounts;
     }
 
     public double getTotalPriceAfterDiscount() {

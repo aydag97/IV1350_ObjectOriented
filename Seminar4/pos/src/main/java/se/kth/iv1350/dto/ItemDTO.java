@@ -1,4 +1,4 @@
-package se.kth.iv1350.model;
+package se.kth.iv1350.dto;
 
 /**
  * Represents an item data transfer object, containing all relevant information about an item

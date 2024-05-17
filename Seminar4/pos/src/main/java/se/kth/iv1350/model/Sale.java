@@ -2,7 +2,7 @@ package se.kth.iv1350.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
+import se.kth.iv1350.dto.*;
 
 /**
  * The Sale class represents a sale transaction.
@@ -11,10 +11,12 @@ public class Sale {
     private ArrayList<ItemsInBag> shoppingBag;
     private Receipt receipt;
     private LocalDateTime saleStartTime;
+    private ArrayList<DiscountDTO> appliedDiscounts;
     private SaleDTO saleAfterDiscount;
     private double totalPrice;
     private double totalVAT;
     private double totalRunningPrice;
+    private double totalPriceAfterDiscount;
     private ArrayList<SaleObserver> observers = new ArrayList<SaleObserver>();
 
     /**
@@ -23,15 +25,25 @@ public class Sale {
     public Sale() {
         saleStartTime = setSaleStartTime();
         shoppingBag = new ArrayList<ItemsInBag>();
+        appliedDiscounts = new ArrayList<DiscountDTO>();
         receipt = new Receipt();
         totalPrice = 0;
         totalVAT = 0;
         totalRunningPrice = 0;
+        totalPriceAfterDiscount = totalPrice;
+    }
+
+    public double getTotalPrice(){
+        return this.totalPrice;
     }
 
     // Start Sale communication diagram
     private LocalDateTime setSaleStartTime() {
         return LocalDateTime.now();
+    }
+
+    public DiscountDTO getAppliedDiscountInfo(int discountIndex){
+        return this.appliedDiscounts.get(discountIndex);
     }
 
     /**
@@ -79,6 +91,7 @@ public class Sale {
             totalRunningPrice += (itemToUpdate.getItem().getItemPrice()*quantity);
             totalVAT += (itemToUpdate.getItem().getItemVatRate()*quantity);
             this.totalPrice = totalRunningPrice + (totalVAT/100);
+            this.totalPriceAfterDiscount = this.totalPrice;
         }
         return this.shoppingBag;
     }
@@ -94,6 +107,7 @@ public class Sale {
         totalRunningPrice += (itemInfo.getItemPrice()*quantity);
         totalVAT += (itemInfo.getItemVatRate()*quantity);
         this.totalPrice = totalRunningPrice + (totalVAT/100);
+        this.totalPriceAfterDiscount = this.totalPrice;
         return this.shoppingBag;
     }
 
@@ -114,7 +128,7 @@ public class Sale {
      * @return The amount of change to be returned to the customer.
      */
     public double calculateChange(double amountPaid) {
-        return (amountPaid - this.totalPrice);
+        return (amountPaid - this.totalPriceAfterDiscount);
     }
 
     /**
@@ -137,9 +151,12 @@ public class Sale {
      * @return The SaleDTO object representing the sale after applying the discount.
      */
     
-    public SaleDTO reduceSale(ArrayList<ItemsInBag> finalSale, double discount) {
-        double totalPriceAfterDiscount = totalPrice - discount;
-        saleAfterDiscount = new SaleDTO(this.saleStartTime, finalSale, this.totalPrice, discount, totalPriceAfterDiscount, this.totalVAT);
+    public SaleDTO reduceSale(DiscountDTO discount) {
+        this.appliedDiscounts.add(discount);
+        DiscountFactory discFactory = new DiscountFactory();
+        this.totalPriceAfterDiscount = discFactory.getDiscountAlgorithm(discount).calculateTheDiscount(totalPriceAfterDiscount, discount);
+
+        this.saleAfterDiscount = new SaleDTO(this.saleStartTime, getFinalBag(), this.totalPrice, discount.amount(), this.appliedDiscounts, totalPriceAfterDiscount, this.totalVAT);
         return saleAfterDiscount;
     }
 

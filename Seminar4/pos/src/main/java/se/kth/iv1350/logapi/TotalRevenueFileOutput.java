@@ -1,4 +1,4 @@
-package se.kth.iv1350.view;
+package se.kth.iv1350.logapi;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -49,5 +49,4 @@ public class TotalRevenueFileOutput implements SaleObserver {
         messageToLog.append(this.totalRevenue + " kr.");
         logStream.println(messageToLog + "\n");
     }
-
 }

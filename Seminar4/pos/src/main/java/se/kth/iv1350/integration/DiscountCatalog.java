@@ -1,5 +1,7 @@
 package se.kth.iv1350.integration;
 import java.util.ArrayList;
+
+import se.kth.iv1350.dto.DiscountDTO;
 import se.kth.iv1350.model.*;
 
 /**
@@ -17,7 +19,15 @@ public class DiscountCatalog {
      * @param saleInfo   The list of items in the sale for which the discount is calculated.
      * @return The discount amount as a double value.
      */
-    public double fetchDiscountInfo(int customerID, ArrayList<ItemsInBag> saleInfo){
-        return 0;
+    public DiscountDTO fetchDiscountOnItems(ArrayList<ItemsInBag> saleInfo){
+        return new DiscountDTO(30, "Amount", "A bonus of 30 kr added to sale");
+    }
+
+    public DiscountDTO fetchDiscountOnSale(double totalSaleAmount){
+        return new DiscountDTO(0.1, "Percent", "10% off on the sale");
+    }
+
+    public DiscountDTO fetchDiscountOnCustomer(int customerID){
+        return new DiscountDTO(0.2, "Percent", "20% off for all members");
     }
 }

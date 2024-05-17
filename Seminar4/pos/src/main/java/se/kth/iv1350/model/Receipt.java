@@ -1,5 +1,7 @@
 package se.kth.iv1350.model;
 
+import se.kth.iv1350.dto.ReceiptDTO;
+import se.kth.iv1350.dto.SaleDTO;
 
 /**
  * The Receipt class is responsible for creating receipts.

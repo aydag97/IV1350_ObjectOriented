@@ -3,6 +3,11 @@ package se.kth.iv1350.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+
+import se.kth.iv1350.dto.DiscountDTO;
+import se.kth.iv1350.dto.ItemDTO;
+import se.kth.iv1350.dto.SaleDTO;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SaleTest {
@@ -57,8 +62,8 @@ public class SaleTest {
     @Test
     public void reduceSaleTest() {
       createShoppingBag();
-      double expectedResult = 112.88;
-      SaleDTO saleAfterDiscount = sale.reduceSale(sale.getFinalBag(), 0);
+      double expectedResult = 101.592;
+      SaleDTO saleAfterDiscount = sale.reduceSale(new DiscountDTO(0.1, "Percent", "10% off on items"));
       assertEquals(expectedResult, saleAfterDiscount.getTotalPriceAfterDiscount(), "Price didn't reduce with discount"); 
     }
     

@@ -1,6 +1,6 @@
 package se.kth.iv1350.integration;
 
-import se.kth.iv1350.model.SaleDTO;
+import se.kth.iv1350.dto.SaleDTO;
 
 /**
  * The AccountingSystem class is responsible for updating the accounting system

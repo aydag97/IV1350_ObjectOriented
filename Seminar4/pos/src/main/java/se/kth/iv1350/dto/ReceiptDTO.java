@@ -1,4 +1,4 @@
-package se.kth.iv1350.model;
+package se.kth.iv1350.dto;
 
 /**
  * Represents a data transfer object for a receipt, encapsulating details about a sale

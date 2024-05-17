@@ -2,8 +2,8 @@ package se.kth.iv1350.controller;
 
 import java.util.ArrayList;
 
-import se.kth.iv1350.exceptions.DatabaseFailureException;
-import se.kth.iv1350.exceptions.ItemNotFoundException;
+import se.kth.iv1350.dto.*;
+import se.kth.iv1350.exceptions.*;
 import se.kth.iv1350.integration.*;
 import se.kth.iv1350.model.*;
 
@@ -107,10 +107,16 @@ public class Controller {
 
     public SaleDTO requestDiscount(int customerID) {
         ArrayList<ItemsInBag> finalSale = getFinalBag();
-        double amountDiscount = discountCatalog.fetchDiscountInfo(customerID, finalSale);
-        SaleDTO saleAfterDiscount = sale.reduceSale(sale.getFinalBag(), amountDiscount);
-        accountingSystem.updateAccounting(saleAfterDiscount);
-        return saleAfterDiscount;
+        DiscountDTO amountDiscountOnCustomer = discountCatalog.fetchDiscountOnCustomer(customerID);
+        DiscountDTO amountDiscountOnSale = discountCatalog.fetchDiscountOnSale(sale.getTotalPrice());
+        DiscountDTO amountDiscountOnItem = discountCatalog.fetchDiscountOnItems(finalSale);
+        sale.reduceSale(amountDiscountOnCustomer);
+
+        sale.reduceSale(amountDiscountOnSale);
+
+        SaleDTO saleAfterThirdDiscount = sale.reduceSale(amountDiscountOnItem);
+        accountingSystem.updateAccounting(saleAfterThirdDiscount);
+        return saleAfterThirdDiscount;
     }
 
     public void addNewSaleObserver(SaleObserver observerToAdd){

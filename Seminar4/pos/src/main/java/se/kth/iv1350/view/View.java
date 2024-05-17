@@ -1,11 +1,9 @@
 package se.kth.iv1350.view;
 import se.kth.iv1350.controller.*;
-import se.kth.iv1350.exceptions.DatabaseFailureException;
-import se.kth.iv1350.exceptions.ItemNotFoundException;
+import se.kth.iv1350.exceptions.*;
 import se.kth.iv1350.logapi.*;
 
 import static java.lang.System.*;
-
 
 /**
  * The View class is responsible for interacting with the user interface.

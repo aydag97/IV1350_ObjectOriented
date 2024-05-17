@@ -2,6 +2,8 @@ package se.kth.iv1350.integration;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import se.kth.iv1350.dto.*;
 import se.kth.iv1350.model.*;
 
 
@@ -40,8 +42,8 @@ public class Printer {
         }
         
         System.out.printf("\nTotal price(incl. VAT): %.2f SEK", (saleInfoFromReceipt.getTotalPrice()));
+        System.out.printf("\nTotal price after discount: %.2f SEK" , saleInfoFromReceipt.getTotalPriceAfterDiscount());
         System.out.printf("\nThe amount paid: %.2f SEK", (receiptToPrint.getAmountPaid()));
-        System.out.println("\nDiscount amount: " + saleInfoFromReceipt.getTotalDiscount());
-        System.out.println("****************************************************\n");
+        System.out.println("\n****************************************************\n");
     }
 }

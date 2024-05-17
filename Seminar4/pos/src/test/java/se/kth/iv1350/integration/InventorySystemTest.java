@@ -1,16 +1,12 @@
 package se.kth.iv1350.integration;
 
-import se.kth.iv1350.exceptions.DatabaseFailureException;
-import se.kth.iv1350.exceptions.ItemNotFoundException;
+import se.kth.iv1350.dto.ItemDTO;
+import se.kth.iv1350.exceptions.*;
 import se.kth.iv1350.model.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.function.Executable;
 
 public class InventorySystemTest {

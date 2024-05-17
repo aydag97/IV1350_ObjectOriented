@@ -1,5 +1,7 @@
 package se.kth.iv1350.model;
 
+import se.kth.iv1350.dto.ItemDTO;
+
 /**
  * Represents a container for items, tracking both the item and its quantity within a bag.
  */
