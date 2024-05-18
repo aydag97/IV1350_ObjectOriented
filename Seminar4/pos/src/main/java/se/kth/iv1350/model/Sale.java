@@ -153,8 +153,7 @@ public class Sale {
     
     public SaleDTO reduceSale(DiscountDTO discount) {
         this.appliedDiscounts.add(discount);
-        DiscountFactory discFactory = new DiscountFactory();
-        this.totalPriceAfterDiscount = discFactory.getDiscountAlgorithm(discount).calculateTheDiscount(totalPriceAfterDiscount, discount);
+        this.totalPriceAfterDiscount = DiscountFactory.getFactoryInstance().getDiscountAlgorithm(discount).calculateTheDiscount(totalPriceAfterDiscount, discount);
 
         this.saleAfterDiscount = new SaleDTO(this.saleStartTime, getFinalBag(), this.totalPrice, discount.amount(), this.appliedDiscounts, totalPriceAfterDiscount, this.totalVAT);
         return saleAfterDiscount;
