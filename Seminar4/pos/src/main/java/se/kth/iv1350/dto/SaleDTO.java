@@ -26,6 +26,8 @@ public class SaleDTO {
      * @param finalSale The list of items in the sale.
      * @param totalPrice The total price of the sale.
      * @param totalDiscount The total discount applied to the sale.
+     * @param allAppliedDiscounts All applied discounts on the same
+     * @param totalPriceAfterDiscount The updated total price after applied discounts
      * @param totalVAT The total value-added tax (VAT) of the sale.
      */
     public SaleDTO(LocalDateTime time, ArrayList<ItemsInBag> finalSale, double totalPrice, double totalDiscount,
@@ -75,10 +77,20 @@ public class SaleDTO {
         return this.totalDiscount;
     }
 
+    /**
+     * Retrieves all applied discounts.
+     * 
+     * @return an array list of all discounts.
+     */
     public ArrayList<DiscountDTO> getAllAppliedDiscounts() {
         return this.allAppliedDiscounts;
     }
 
+     /**
+     * Retrieves the total price after discount.
+     * 
+     * @return The total price after discount.
+     */
     public double getTotalPriceAfterDiscount() {
         return this.totalPriceAfterDiscount;
     }

@@ -41,7 +41,10 @@ public class Printer {
             System.out.printf("%dx \t\t%s\t\t %.2f SEK\n", item.getItemQuantity(), item.getItem().getItemName(), item.getItem().getItemPrice());
         }
         
-        System.out.printf("\nTotal price(incl. VAT): %.2f SEK", (saleInfoFromReceipt.getTotalPrice()));
+        System.out.printf("\nTotal price(incl. VAT): %.2f SEK\n\n", (saleInfoFromReceipt.getTotalPrice()));
+        System.out.println(saleInfoFromReceipt.getAllAppliedDiscounts().get(0).discountDescription());
+        System.out.println(saleInfoFromReceipt.getAllAppliedDiscounts().get(1).discountDescription());
+        System.out.println(saleInfoFromReceipt.getAllAppliedDiscounts().get(2).discountDescription());
         System.out.printf("\nTotal price after discount: %.2f SEK" , saleInfoFromReceipt.getTotalPriceAfterDiscount());
         System.out.printf("\nThe amount paid: %.2f SEK", (receiptToPrint.getAmountPaid()));
         System.out.println("\n****************************************************\n");

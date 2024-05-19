@@ -2,19 +2,27 @@ package se.kth.iv1350.view;
 
 import se.kth.iv1350.model.SaleObserver;
 
+/**
+ * The TotalRevenueView class represents a view that displays the total revenue.
+ */
 public class TotalRevenueView implements SaleObserver {
 
     private double totalRevenue;
 
-    // anropas en gång i samband med controller
+    /**
+     * Constructs a TotalRevenueView object with initial total revenue set to 0.
+     */
     public TotalRevenueView(){
         totalRevenue = 0;
     }
-    // 100 kr första sale inkomst
 
+    /**
+     * Updates the total revenue and prints the new total revenue.
+     *
+     * @param totalPrice The total price of the sale.
+     */
     @Override
     public void updateRevenue(double totalPrice){
-        // 100 kr totalREvenue
         totalRevenue += totalPrice;
         printTotalRevenue();
     }

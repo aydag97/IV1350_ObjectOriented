@@ -37,7 +37,6 @@ public class Sale {
         return this.totalPrice;
     }
 
-    // Start Sale communication diagram
     private LocalDateTime setSaleStartTime() {
         return LocalDateTime.now();
     }
@@ -82,6 +81,7 @@ public class Sale {
      * 
      * @param itemID   The ID of the item to update.
      * @param quantity The new quantity of the item.
+     * @return The updated list of items in the shopping bag.
      */
     public ArrayList<ItemsInBag> updateItemQuantityInSale(int itemID, int quantity) {
 
@@ -101,6 +101,7 @@ public class Sale {
      * 
      * @param itemInfo The ItemDTO object containing information about the item to add.
      * @param quantity The quantity of the item to add.
+     * @return The updated list of items in the shopping bag.
      */
     public ArrayList<ItemsInBag> addNewItem(ItemDTO itemInfo, int quantity) {
         this.shoppingBag.add(new ItemsInBag(itemInfo, quantity));
@@ -135,9 +136,9 @@ public class Sale {
      * Generates a receipt based on the sale data and the calculated change.
      *
      * @param change The change to be included in the receipt.
+     * @param amountPaid The total amount paid by the customer.
      * @return A data transfer object representing the receipt.
      */
-    
     public ReceiptDTO getReceipt(double change, double amountPaid){
         notifyObservers();
         return receipt.createReceipt(saleAfterDiscount, change, amountPaid);
@@ -146,15 +147,12 @@ public class Sale {
     /**
      * Reduces the sale by applying a discount and updating the sale information.
      * 
-     * @param finalSale The list of items in the final sale.
-     * @param discount  The discount amount to apply.
+     * @param discount The discount amount to apply.
      * @return The SaleDTO object representing the sale after applying the discount.
      */
-    
     public SaleDTO reduceSale(DiscountDTO discount) {
         this.appliedDiscounts.add(discount);
         this.totalPriceAfterDiscount = DiscountFactory.getFactoryInstance().getDiscountAlgorithm(discount).calculateTheDiscount(totalPriceAfterDiscount, discount);
-
         this.saleAfterDiscount = new SaleDTO(this.saleStartTime, getFinalBag(), this.totalPrice, discount.amount(), this.appliedDiscounts, totalPriceAfterDiscount, this.totalVAT);
         return saleAfterDiscount;
     }
@@ -165,6 +163,11 @@ public class Sale {
         }
     }
 
+    /**
+     * Adds multiple sale observers.
+     * 
+     * @param observerList The list of observers to add.
+     */
     public void addMultipleSaleObservers(ArrayList<SaleObserver> observerList){
         observers.addAll(observerList);
     }

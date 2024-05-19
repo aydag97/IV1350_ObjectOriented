@@ -43,6 +43,7 @@ public class Controller {
         sale = new Sale();
         sale.addMultipleSaleObservers(saleObservers);
     }
+
     /**
      * Registers an item in the current sale.
      * If the item already exists in the sale, updates its quantity.
@@ -50,8 +51,10 @@ public class Controller {
      * 
      * @param itemID The ID of the item to be registered.
      * @param quantity The quantity of the item to be registered.
+     * @return The updated list of items in the shopping bag.
+     * @throws ItemNotFoundException If the item with the specified ID is not found.
+     * @throws DatabaseFailureException If there is a failure in accessing the database.
      */
-
     public ArrayList<ItemsInBag> registerItem(int itemID, int quantity) throws ItemNotFoundException, DatabaseFailureException{
         boolean itemFound = sale.containsItemID(itemID);
         if (itemFound) {
@@ -119,6 +122,11 @@ public class Controller {
         return saleAfterThirdDiscount;
     }
 
+    /**
+     * Adds a new observer to the sale.
+     * 
+     * @param observerToAdd The observer to be added.
+     */
     public void addNewSaleObserver(SaleObserver observerToAdd){
         saleObservers.add(observerToAdd);
     }
