@@ -11,6 +11,7 @@ import static java.lang.System.*;
 public class View {
 
     private Controller contr;
+    private FileLogger fileLogger;
 
     /**
      * Constructs a View object with the specified controller.
@@ -18,6 +19,7 @@ public class View {
      * @param controller The Controller object associated with this View instance.
      */
     public View(Controller contr){
+        fileLogger = new FileLogger();
         this.contr = contr;
         contr.addNewSaleObserver(new TotalRevenueView());
         contr.addNewSaleObserver(new TotalRevenueFileOutput());
@@ -27,7 +29,6 @@ public class View {
      * Simulates a fake sale story for testing purposes.
      */
     public void simulateFakeSaleStory(){
-        FileLogger fileLogger = new FileLogger();
         
         out.println("\n---------- Welcome to our store! ----------\n");
 
@@ -38,7 +39,7 @@ public class View {
             contr.registerItem(1, 1);
             out.println("1x Item 1 added.");
         }catch(ItemNotFoundException | DatabaseFailureException exception){
-            out.println(exception.getMessage());
+            exception.getMessage();
             fileLogger.log(exception);
         }
           
@@ -46,7 +47,7 @@ public class View {
             contr.registerItem(2, 3);
             out.println("3x Item 2 added.");
         }catch(ItemNotFoundException | DatabaseFailureException exception){
-            out.println(exception.getMessage());
+            exception.getMessage();
             fileLogger.log(exception);
         }
 
@@ -55,14 +56,14 @@ public class View {
             out.println("1x Item 4 added.");
         }catch(ItemNotFoundException | DatabaseFailureException exception){
             fileLogger.log(exception);
-            out.println(exception.getMessage());
+            exception.getMessage();
         }
 
         try{
             contr.registerItem(6, 1);
             out.println("1x Item 6 added.");
         }catch(ItemNotFoundException | DatabaseFailureException exception){
-            out.println(exception.getMessage());
+            exception.getMessage();
             fileLogger.log(exception);
         }
     
@@ -81,7 +82,6 @@ public class View {
     }
 
     public void simulateAnotherFakeSaleStory(){
-        FileLogger fileLogger = new FileLogger();
         
         out.println("\n---------- Welcome to our store! ----------\n");
 
@@ -92,7 +92,7 @@ public class View {
             contr.registerItem(3, 10);
             out.println("10x Item 3 added.");
         }catch(ItemNotFoundException | DatabaseFailureException exception){
-            out.println(exception.getMessage());
+            exception.getMessage();
             fileLogger.log(exception);
         }
           
@@ -100,7 +100,7 @@ public class View {
             contr.registerItem(2, 2);
             out.println("2x Item 2 added.");
         }catch(ItemNotFoundException | DatabaseFailureException exception){
-            out.println(exception.getMessage());
+            exception.getMessage();
             fileLogger.log(exception);
         }
     
