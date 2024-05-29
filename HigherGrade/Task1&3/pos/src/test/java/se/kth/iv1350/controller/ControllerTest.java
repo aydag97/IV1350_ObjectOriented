@@ -105,7 +105,7 @@ public class ControllerTest {
             fail(exception.getMessage());
         }
         SaleDTO saleAfterDiscount = controller.requestDiscount(1);
-        double expectedDiscount = 0;
+        double expectedDiscount = 30;
         assertEquals(expectedDiscount, saleAfterDiscount.getTotalDiscount(), "Discount amount doesn't match");
     }
 }
