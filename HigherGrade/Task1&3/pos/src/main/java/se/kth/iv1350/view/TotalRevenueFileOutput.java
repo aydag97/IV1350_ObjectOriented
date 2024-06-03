@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * TotalRevenueFileOutput is responsible for logging the total revenue to a file.
- * It implements the SaleObserver interface to update and log the revenue when notified.
+ * It extends TotalRevenueTemplate to update and log the revenue when notified.
  */
 public class TotalRevenueFileOutput extends TotalRevenueTemplate {
 
@@ -17,8 +17,8 @@ public class TotalRevenueFileOutput extends TotalRevenueTemplate {
     private PrintWriter exceptionLog;
     
     /**
-     * Creates a new instance of TotalRevenueFileOutput and initializes the log file.
-     * If the log file cannot be created, prints an error message and stack trace.
+     * Creates a new instance of TotalRevenueFileOutput and initializes the log files.
+     * If the log files cannot be created, prints an error message and stack trace.
      */
     public TotalRevenueFileOutput() {
         try {
@@ -30,11 +30,21 @@ public class TotalRevenueFileOutput extends TotalRevenueTemplate {
         }
     }
 
+    /**
+     * Logs the current total income to the log file.
+     * This method is called by the parent class when a new sale is made.
+     */
+
     @Override
     public void doShowTotalIncome() {
         log();
     }
 
+    /**
+     * Handles any errors by logging them to the exception log file.
+     *
+     * @param e The exception that was thrown.
+     */
     @Override
     public void handleErrors(Exception e){
         exceptionLog.println(e.getMessage());

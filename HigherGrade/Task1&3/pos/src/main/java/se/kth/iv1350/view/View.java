@@ -39,7 +39,7 @@ public class View {
             contr.registerItem(1, 1);
             out.println("1x Item 1 added.");
         }catch(ItemNotFoundException | DatabaseFailureException exception){
-            exception.getMessage();
+            out.println("Something went wrong with scanning the item.");
             fileLogger.log(exception);
         }
           
@@ -47,7 +47,7 @@ public class View {
             contr.registerItem(2, 3);
             out.println("3x Item 2 added.");
         }catch(ItemNotFoundException | DatabaseFailureException exception){
-            exception.getMessage();
+            out.println("Something went wrong with scanning the item.");
             fileLogger.log(exception);
         }
 
@@ -56,7 +56,7 @@ public class View {
             out.println("1x Item 4 added.");
         }catch(ItemNotFoundException | DatabaseFailureException exception){
             fileLogger.log(exception);
-            exception.getMessage();
+            out.println("Something went wrong with scanning the item.");
         }
 
         try{
@@ -64,7 +64,7 @@ public class View {
             out.println("1x Item 6 added.");
         }catch(ItemNotFoundException | DatabaseFailureException exception){
             exception.getMessage();
-            fileLogger.log(exception);
+            out.println("Something went wrong with scanning the item.");
         }
     
         contr.endSale();
@@ -92,7 +92,7 @@ public class View {
             contr.registerItem(3, 10);
             out.println("10x Item 3 added.");
         }catch(ItemNotFoundException | DatabaseFailureException exception){
-            exception.getMessage();
+            out.println("Something went wrong with scanning the item.");
             fileLogger.log(exception);
         }
           
@@ -100,7 +100,7 @@ public class View {
             contr.registerItem(2, 2);
             out.println("2x Item 2 added.");
         }catch(ItemNotFoundException | DatabaseFailureException exception){
-            exception.getMessage();
+            out.println("Something went wrong with scanning the item.");
             fileLogger.log(exception);
         }
     
