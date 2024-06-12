@@ -35,8 +35,8 @@ public class View {
         contr.registerItem(2, 3);
         out.println("3x Item 2 added.");
 
-        contr.endSale();
-        out.println("Sale has been ended\n");
+        double totalPrice = contr.endSale();
+        out.println("Sale has been ended. Total Price of sale is: "+ totalPrice + " SEK.\n");
 
         contr.requestDiscount(1);
 

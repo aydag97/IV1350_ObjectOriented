@@ -34,6 +34,10 @@ public class Sale {
         return LocalDateTime.now();
     }
 
+    public double getTotalPrice(){
+        return this.totalPrice;
+    }
+
     /**
      * Retrieves the item in the shopping bag with the specified item ID.
      * 

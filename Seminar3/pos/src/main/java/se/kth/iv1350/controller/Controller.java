@@ -47,19 +47,21 @@ public class Controller {
      * @param quantity The quantity of the item to be registered.
      */
 
-    public ArrayList<ItemsInBag> registerItem(int itemID, int quantity) {
+    public void registerItem(int itemID, int quantity) {
         boolean itemFound = sale.containsItemID(itemID);
         if (itemFound) {
-            ArrayList<ItemsInBag> currenShoppingBag = sale.updateItemQuantityInSale(itemID, quantity);
-            return currenShoppingBag;
+            sale.updateItemQuantityInSale(itemID, quantity);
         } else {
             ItemDTO itemInfo = inventorySystem.getItemInfo(itemID);
-            ArrayList<ItemsInBag> currenShoppingBag = sale.addNewItem(itemInfo, quantity);
-            return currenShoppingBag;
+            sale.addNewItem(itemInfo, quantity);
         }
     }
 
-    private ArrayList<ItemsInBag> getFinalBag(){
+    /*
+     * Returns the final sale.
+     */
+
+    public ArrayList<ItemsInBag> getFinalBag(){
         return this.sale.getFinalBag();
     }
 
@@ -68,10 +70,11 @@ public class Controller {
      * Records the sale in the sales log and updates the inventory.
      */
 
-    public void endSale() {
+    public double endSale() {
         ArrayList<ItemsInBag> finalSale = getFinalBag();
         saleslog.recordSale(finalSale);
         inventorySystem.updateItemInventory(finalSale);
+        return this.sale.getTotalPrice();
     }
 
     /**
