@@ -29,14 +29,6 @@ public class SaleTest {
       createShoppingBag();
       assertFalse(sale.containsItemID(2), "Item found in the bag");
     }
-
-    @Test
-    public void updateQuantityOfAlreadyScannedItem() {
-      createShoppingBag();
-      sale.updateItemQuantityInSale(3, 2);
-      int expectedResult = 3;
-      assertEquals(expectedResult, sale.getItemInBag(3).getItemQuantity(), "Item quantity didn't updated correctly");
-    }
       
     @Test
     public void addNewItemTest(){

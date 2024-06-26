@@ -39,8 +39,8 @@ public class InventorySystem {
      * 
      * @param finalSale The list of items sold in the completed sale.
      */
-    public void updateItemInventory(ArrayList<ItemsInBag> finalSale) {
-      for(ItemsInBag itemInFinalSale : finalSale){
+    public void updateItemInventory(ArrayList<ItemsInBagDTO> finalSale) {
+      for(ItemsInBagDTO itemInFinalSale : finalSale){
         ItemDTO itemInfo = itemInFinalSale.getItem();
         int itemQuantity = itemInFinalSale.getItemQuantity();
         int updatedQuantity = itemInfo.getItemQuantity() - itemQuantity; 

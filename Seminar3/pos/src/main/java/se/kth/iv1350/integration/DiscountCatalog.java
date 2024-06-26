@@ -17,7 +17,7 @@ public class DiscountCatalog {
      * @param saleInfo   The list of items in the sale for which the discount is calculated.
      * @return The discount amount as a double value.
      */
-    public double fetchDiscountInfo(int customerID, ArrayList<ItemsInBag> saleInfo){
+    public double fetchDiscountInfo(int customerID, ArrayList<ItemsInBagDTO> saleInfo){
         return 0;
     }
 }

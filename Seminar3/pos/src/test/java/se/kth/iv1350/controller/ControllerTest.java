@@ -36,17 +36,17 @@ public class ControllerTest {
         controller.registerItem(1, 10);
         int expectedResult = 12;
         String expectedItemName = "Butter";
-        assertEquals(expectedResult, controller.getFinalBag().get(0).getItemQuantity(), "The quantity doesn't match");
-        assertEquals(expectedItemName, controller.getFinalBag().get(1).getItem().getItemName(), "Scanning failed");
+        assertEquals(expectedResult, controller.getFinalBag().get(1).getItemQuantity(), "The quantity doesn't match");
+        assertEquals(expectedItemName, controller.getFinalBag().get(0).getItem().getItemName(), "Scanning failed");
     }
 
     @Test
     public void endSaleTest() {
         controller.registerItem(2, 3);
         controller.registerItem(3, 1);
-        int finalBag = controller.getFinalBag().get(0).getItemQuantity() + controller.getFinalBag().get(1).getItemQuantity();
-        int expectedResult = 4;
-        assertEquals(expectedResult, finalBag, "The shopping bag does not contain all scanned items.");
+        int finalBagPrice = (int) controller.endSale();
+        int expectedResult = 103;
+        assertEquals(expectedResult, finalBagPrice, "The shopping bag does not contain all scanned items.");
     }
 
     

@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class SaleDTO {
     private LocalDateTime time;
-    private ArrayList<ItemsInBag> finalSale;
+    private ArrayList<ItemsInBagDTO> finalSale;
     private double totalPrice;
     private double totalDiscount;
     private double totalPriceAfterDiscount;
@@ -25,7 +25,7 @@ public class SaleDTO {
      * @param totalDiscount The total discount applied to the sale.
      * @param totalVAT The total value-added tax (VAT) of the sale.
      */
-    public SaleDTO(LocalDateTime time, ArrayList<ItemsInBag> finalSale, double totalPrice, double totalDiscount,
+    public SaleDTO(LocalDateTime time, ArrayList<ItemsInBagDTO> finalSale, double totalPrice, double totalDiscount,
             double totalPriceAfterDiscount, double totalVAT) {
         this.time = time;
         this.finalSale = finalSale;
@@ -49,7 +49,7 @@ public class SaleDTO {
      * 
      * @return The list of items in the sale.
      */
-    public ArrayList<ItemsInBag> getFinalSale(){
+    public ArrayList<ItemsInBagDTO> getFinalSale(){
         return this.finalSale;
     }
 

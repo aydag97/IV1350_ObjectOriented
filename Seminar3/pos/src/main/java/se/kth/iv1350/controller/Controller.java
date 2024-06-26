@@ -38,30 +38,23 @@ public class Controller {
     public void startSale() {
         sale = new Sale();
     }
+
+
     /**
      * Registers an item in the current sale.
-     * If the item already exists in the sale, updates its quantity.
-     * If the item is not found in the sale, adds it as a new item.
      * 
      * @param itemID The ID of the item to be registered.
      * @param quantity The quantity of the item to be registered.
      */
-
     public void registerItem(int itemID, int quantity) {
-        boolean itemFound = sale.containsItemID(itemID);
-        if (itemFound) {
-            sale.updateItemQuantityInSale(itemID, quantity);
-        } else {
-            ItemDTO itemInfo = inventorySystem.getItemInfo(itemID);
-            sale.addNewItem(itemInfo, quantity);
-        }
+        ItemDTO itemInfo = inventorySystem.getItemInfo(itemID);
+        sale.addNewItem(itemInfo, quantity);
     }
 
     /*
      * Returns the final sale.
      */
-
-    public ArrayList<ItemsInBag> getFinalBag(){
+    public ArrayList<ItemsInBagDTO> getFinalBag(){
         return this.sale.getFinalBag();
     }
 
@@ -71,7 +64,7 @@ public class Controller {
      */
 
     public double endSale() {
-        ArrayList<ItemsInBag> finalSale = getFinalBag();
+        ArrayList<ItemsInBagDTO> finalSale = getFinalBag();
         saleslog.recordSale(finalSale);
         inventorySystem.updateItemInventory(finalSale);
         return this.sale.getTotalPrice();
@@ -104,7 +97,7 @@ public class Controller {
      */
 
     public SaleDTO requestDiscount(int customerID) {
-        ArrayList<ItemsInBag> finalSale = getFinalBag();
+        ArrayList<ItemsInBagDTO> finalSale = getFinalBag();
         double amountDiscount = discountCatalog.fetchDiscountInfo(customerID, finalSale);
         SaleDTO saleAfterDiscount = sale.reduceSale(sale.getFinalBag(), amountDiscount);
         accountingSystem.updateAccounting(saleAfterDiscount);

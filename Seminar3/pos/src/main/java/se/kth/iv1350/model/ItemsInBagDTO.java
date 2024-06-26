@@ -3,10 +3,10 @@ package se.kth.iv1350.model;
 /**
  * Represents a container for items, tracking both the item and its quantity within a bag.
  */
-public class ItemsInBag {
+public class ItemsInBagDTO {
 
-    private ItemDTO item;
-    private int quantity;
+    final private ItemDTO item;
+    final private int quantity;
 
     /**
      * Constructs an {@code ItemsInBag} object with the specified item and its quantity.
@@ -15,7 +15,7 @@ public class ItemsInBag {
      * @param quantity the quantity of the item
      */
     
-    public ItemsInBag(ItemDTO item, int quantity){
+    public ItemsInBagDTO(ItemDTO item, int quantity){
         this.item = item;
         this.quantity = quantity;
     }
@@ -45,15 +45,5 @@ public class ItemsInBag {
      */
     public int getItemID(){
         return this.item.getItemID();
-    }
-
-    /**
-     * Updates the quantity of the item in the bag by adding the specified amount.
-     * 
-     * @param quantity the amount to add to the current quantity
-     */
-    public void updateQuantity(int quantity) {
-        this.quantity += quantity;
-    } 
-    
+    }  
 }
