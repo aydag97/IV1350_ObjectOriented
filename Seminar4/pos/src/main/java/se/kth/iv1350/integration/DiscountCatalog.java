@@ -1,8 +1,7 @@
 package se.kth.iv1350.integration;
 import java.util.ArrayList;
 
-import se.kth.iv1350.dto.DiscountDTO;
-import se.kth.iv1350.model.*;
+import se.kth.iv1350.dto.*;
 
 /**
  * The DiscountCatalog class is responsible for fetching discount information
@@ -17,7 +16,7 @@ public class DiscountCatalog {
      * @param saleInfo The list of items in the sale for which the discount is calculated.
      * @return The DiscountDTO object containing the discount details.
      */
-    public DiscountDTO fetchDiscountOnItems(ArrayList<ItemsInBag> saleInfo){
+    public DiscountDTO fetchDiscountOnItems(ArrayList<ItemsInBagDTO> saleInfo){
         return new DiscountDTO(30, "Amount", "A bonus of 30 kr added to sale");
     }
 

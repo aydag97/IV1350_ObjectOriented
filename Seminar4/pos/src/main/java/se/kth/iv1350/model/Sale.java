@@ -8,7 +8,7 @@ import se.kth.iv1350.dto.*;
  * The Sale class represents a sale transaction.
  */
 public class Sale {
-    private ArrayList<ItemsInBag> shoppingBag;
+    private ArrayList<ItemsInBagDTO> shoppingBag;
     private Receipt receipt;
     private LocalDateTime saleStartTime;
     private ArrayList<DiscountDTO> appliedDiscounts;
@@ -24,7 +24,7 @@ public class Sale {
      */
     public Sale() {
         saleStartTime = setSaleStartTime();
-        shoppingBag = new ArrayList<ItemsInBag>();
+        shoppingBag = new ArrayList<ItemsInBagDTO>();
         appliedDiscounts = new ArrayList<DiscountDTO>();
         receipt = new Receipt();
         totalPrice = 0;
@@ -49,10 +49,10 @@ public class Sale {
      * Retrieves the item in the shopping bag with the specified item ID.
      * 
      * @param itemID The ID of the item to retrieve.
-     * @return The ItemsInBag object corresponding to the specified item ID, or null if not found.
+     * @return The ItemsInBagDTO object corresponding to the specified item ID, or null if not found.
      */
-    public ItemsInBag getItemInBag(int itemID) {
-        ItemsInBag currentItemInBag;
+    public ItemsInBagDTO getItemInBag(int itemID) {
+        ItemsInBagDTO currentItemInBag;
         for (int i = 0; i < shoppingBag.size(); i++) {
             currentItemInBag = shoppingBag.get(i);
             if (itemID == currentItemInBag.getItemID()) {
@@ -76,24 +76,19 @@ public class Sale {
         }
     }
 
-    /**
-     * Updates the quantity of an item in the sale.
-     * 
-     * @param itemID   The ID of the item to update.
-     * @param quantity The new quantity of the item.
-     * @return The updated list of items in the shopping bag.
-     */
-    public ArrayList<ItemsInBag> updateItemQuantityInSale(int itemID, int quantity) {
-
-        ItemsInBag itemToUpdate = getItemInBag(itemID);
-        if (itemToUpdate != null) {
-            itemToUpdate.updateQuantity(quantity);
-            totalRunningPrice += (itemToUpdate.getItem().getItemPrice()*quantity);
-            totalVAT += (itemToUpdate.getItem().getItemVatRate()*quantity);
-            this.totalPrice = totalRunningPrice + (totalVAT/100);
-            this.totalPriceAfterDiscount = this.totalPrice;
+    private void removeOldItem(ItemDTO itemInfo){
+        for(int i = 0; i < this.shoppingBag.size(); i++){
+            if(this.shoppingBag.get(i).getItemID() == itemInfo.getItemID()){
+                this.shoppingBag.remove(i);
+            }
         }
-        return this.shoppingBag;
+    }
+
+    private void updateTotalPriceInBag(ItemDTO itemInfo, int quantity){
+        totalRunningPrice += (itemInfo.getItemPrice()*quantity);
+        totalVAT += (itemInfo.getItemVatRate()*quantity);
+        this.totalPrice = totalRunningPrice + (totalVAT/100);
+        this.totalPriceAfterDiscount = this.totalPrice;
     }
 
     /**
@@ -101,23 +96,26 @@ public class Sale {
      * 
      * @param itemInfo The ItemDTO object containing information about the item to add.
      * @param quantity The quantity of the item to add.
-     * @return The updated list of items in the shopping bag.
      */
-    public ArrayList<ItemsInBag> addNewItem(ItemDTO itemInfo, int quantity) {
-        this.shoppingBag.add(new ItemsInBag(itemInfo, quantity));
-        totalRunningPrice += (itemInfo.getItemPrice()*quantity);
-        totalVAT += (itemInfo.getItemVatRate()*quantity);
-        this.totalPrice = totalRunningPrice + (totalVAT/100);
-        this.totalPriceAfterDiscount = this.totalPrice;
+    public ArrayList<ItemsInBagDTO> addNewItem(ItemDTO itemInfo, int quantity) {
+        if(containsItemID(itemInfo.getItemID())){
+            int oldQuantity = getItemInBag(itemInfo.getItemID()).getItemQuantity();
+            removeOldItem(itemInfo);
+            int newQuantity = oldQuantity + quantity;
+            this.shoppingBag.add(new ItemsInBagDTO(itemInfo, newQuantity));
+        }else{
+            this.shoppingBag.add(new ItemsInBagDTO(itemInfo, quantity));
+        }
+        updateTotalPriceInBag(itemInfo, quantity);
         return this.shoppingBag;
     }
 
     /**
      * Retrieves the items in the final shopping bag.
      * 
-     * @return The ArrayList of ItemsInBag objects representing the final shopping bag.
+     * @return The ArrayList of ItemsInBagDTO objects representing the final shopping bag.
      */
-    public ArrayList<ItemsInBag> getFinalBag() {
+    public ArrayList<ItemsInBagDTO> getFinalBag() {
         return this.shoppingBag;
     }
 

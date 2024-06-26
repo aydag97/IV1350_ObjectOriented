@@ -47,8 +47,6 @@ public class Controller {
 
     /**
      * Registers an item in the current sale.
-     * If the item already exists in the sale, updates its quantity.
-     * If the item is not found in the sale, adds it as a new item.
      * 
      * @param itemID The ID of the item to be registered.
      * @param quantity The quantity of the item to be registered.
@@ -56,19 +54,12 @@ public class Controller {
      * @throws ItemNotFoundException If the item with the specified ID is not found.
      * @throws DatabaseFailureException If there is a failure in accessing the database.
      */
-    public ArrayList<ItemsInBag> registerItem(int itemID, int quantity) throws ItemNotFoundException, DatabaseFailureException{
-        boolean itemFound = sale.containsItemID(itemID);
-        if (itemFound) {
-            ArrayList<ItemsInBag> currenShoppingBag = sale.updateItemQuantityInSale(itemID, quantity);
-            return currenShoppingBag;
-        } else {
-            ItemDTO itemInfo = inventorySystem.getItemInfo(itemID);
-            ArrayList<ItemsInBag> currenShoppingBag = sale.addNewItem(itemInfo, quantity);
-            return currenShoppingBag;
-        }     
+    public void registerItem(int itemID, int quantity) throws ItemNotFoundException, DatabaseFailureException {
+        ItemDTO itemInfo = inventorySystem.getItemInfo(itemID);
+        sale.addNewItem(itemInfo, quantity);
     }
 
-    private ArrayList<ItemsInBag> getFinalBag(){
+    public ArrayList<ItemsInBagDTO> getFinalBag(){
         return this.sale.getFinalBag();
     }
 
@@ -78,7 +69,7 @@ public class Controller {
      */
 
     public void endSale() {
-        ArrayList<ItemsInBag> finalSale = getFinalBag();
+        ArrayList<ItemsInBagDTO> finalSale = getFinalBag();
         saleslog.recordSale(finalSale);
         inventorySystem.updateItemInventory(finalSale);
     }
@@ -110,7 +101,7 @@ public class Controller {
      */
 
     public SaleDTO requestDiscount(int customerID) {
-        ArrayList<ItemsInBag> finalSale = getFinalBag();
+        ArrayList<ItemsInBagDTO> finalSale = getFinalBag();
         DiscountDTO amountDiscountOnCustomer = discountCatalog.fetchDiscountOnCustomer(customerID);
         DiscountDTO amountDiscountOnSale = discountCatalog.fetchDiscountOnSale(sale.getTotalPrice());
         DiscountDTO amountDiscountOnItem = discountCatalog.fetchDiscountOnItems(finalSale);

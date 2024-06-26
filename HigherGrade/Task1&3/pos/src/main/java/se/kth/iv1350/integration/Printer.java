@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import se.kth.iv1350.dto.*;
-import se.kth.iv1350.model.*;
 
 
 /**
@@ -37,7 +36,7 @@ public class Printer {
 
         System.out.println("Quantity \tItem \t\t Price Per Item");
         System.out.println("------------------------------------------------");
-        for(ItemsInBag item : saleInfoFromReceipt.getFinalSale()){
+        for(ItemsInBagDTO item : saleInfoFromReceipt.getFinalSale()){
             System.out.printf("%dx \t\t%s\t\t %.2f SEK\n", item.getItemQuantity(), item.getItem().getItemName(), item.getItem().getItemPrice());
         }
         

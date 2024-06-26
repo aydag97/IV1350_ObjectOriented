@@ -1,8 +1,7 @@
 package se.kth.iv1350.integration;
 import java.util.ArrayList;
 
-import se.kth.iv1350.model.*;
-import se.kth.iv1350.dto.ItemDTO;
+import se.kth.iv1350.dto.*;
 import se.kth.iv1350.exceptions.*;
 /**
  * The InventorySystem class manages the inventory of items available for sale.
@@ -47,8 +46,8 @@ public class InventorySystem {
      * 
      * @param finalSale The list of items sold in the completed sale.
      */
-    public void updateItemInventory(ArrayList<ItemsInBag> finalSale) {
-      for(ItemsInBag itemInFinalSale : finalSale){
+    public void updateItemInventory(ArrayList<ItemsInBagDTO> finalSale) {
+      for(ItemsInBagDTO itemInFinalSale : finalSale){
         ItemDTO itemInfo = itemInFinalSale.getItem();
         int itemQuantity = itemInFinalSale.getItemQuantity();
         int updatedQuantity = itemInfo.getItemQuantity() - itemQuantity; 
